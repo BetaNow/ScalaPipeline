@@ -20,7 +20,7 @@ class FileSourceFactory {
 
     extension match
       case "json" => new JsonSource().read(path)
-      case "csv" => ???
+      case "csv" => new CsvSource().read(path)
       case "xml" => ???
       case _ => Left(new Exception(s"Unsupported file extension: $extension"))
   }
