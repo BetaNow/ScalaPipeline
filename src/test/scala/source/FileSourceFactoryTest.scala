@@ -47,4 +47,28 @@ class FileSourceFactoryTest extends AnyFunSuite {
     assertResult(expectedContent, csvData.content)
   }
 
+  test("Test for XML file source") {
+    val path = "src/test/resources/test.xml"
+    val factory = new FileSourceFactory()
+    val result = factory(path)
+    assert(result.isRight)
+
+    result.map { data =>
+      assert(data.isInstanceOf[Data])
+      assert(data.getFileName == "test")
+      assert(data.getFileExtension == ".xml")
+    }
+
+    // Convert to JsonData to access content
+    val xmlData = result.getOrElse(null)
+    assertResult(expectedContent, xmlData.content)
+  }
+
+  test("Test for unsupported file extension") {
+    val path = "src/test/resources/test.txt"
+    val factory = new FileSourceFactory()
+    val result = factory(path)
+    assert(result.isLeft)
+  }
+
 }
