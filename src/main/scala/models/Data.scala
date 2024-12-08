@@ -6,7 +6,7 @@ package models
  *
  * @param filePath The path to the file.
  */
-abstract case class Data (filePath: String) {
+case class Data (filePath: String, content: List[Map[String, Any]]) {
   /**
    * Gets the file name.
    *

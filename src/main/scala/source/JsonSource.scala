@@ -3,7 +3,7 @@ package source
 
 import play.api.libs.json._
 import processors.Source
-import models.{Data, JsonData}
+import models.Data
 
 /**
  * The JsonSource class reads data from a JSON file.
@@ -26,7 +26,7 @@ class JsonSource extends Source {
       // Close the file
       file.close()
       
-      Right(JsonData(path, content))
+      Right(Data(path, content))
     } catch {
       case e: Throwable => Left(e)
     }
