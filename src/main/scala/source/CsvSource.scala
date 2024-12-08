@@ -14,7 +14,7 @@ class CsvSource extends Source {
    * @param path The path to the CSV file.
    * @return Either a Throwable in case of an error or the data read.
    */
-  override def read (path: String): Either[Throwable, Data] ={
+  override def read (path: String): Either[Throwable, Data] = {
     try {
       val file = scala.io.Source.fromFile(path)
       // Get the keys from the first line
@@ -26,7 +26,7 @@ class CsvSource extends Source {
 
       // Close the file
       file.close()
-      
+
       Right(Data(path, convertTypes(content)))
     } catch {
       case e: Throwable => Left(e)
@@ -41,6 +41,7 @@ class CsvSource extends Source {
    */
   private def convertTypes (data: List[Map[String, Any]]): List[Map[String, Any]] = {
     def convertValue (value: Any): Any = value match {
+      case "null" => null
       case s: String =>
         // Try to convert to Int
         try {
@@ -53,13 +54,15 @@ class CsvSource extends Source {
             } catch {
               case _: NumberFormatException =>
                 // Try to convert to Boolean
-                s.toLowerCase match {
-                  case "true" | "false" => s.toBoolean
-                  case _ => s
+                try {
+                  s.toLowerCase.toBoolean
+                } catch {
+                  case _: Throwable => s
                 }
             }
           case other => other
         }
+
     }
 
     data.map(_.map { case (key, value) => key -> convertValue(value) })

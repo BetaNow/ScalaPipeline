@@ -1,9 +1,9 @@
 package me.betanow
 package transformation
 
-import org.scalatest.funsuite.AnyFunSuite
+import source.FileSourceFactory
 
-import me.betanow.source.FileSourceFactory
+import org.scalatest.funsuite.AnyFunSuite
 
 class TransformationFactoryTest extends AnyFunSuite {
   test("Filter") {
@@ -14,13 +14,14 @@ class TransformationFactoryTest extends AnyFunSuite {
     val expectedData = sourceFactory("src/test/resources/transformation/data_filtered.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
-    println(data.content)
+    assert(expectedData.isInstanceOf[models.Data])
 
-    val result = filter
+    val filterRequest = filter
       .filterWhere(content => content("age").asInstanceOf[Int] >= 30)
-      .filterNotNull(List("name", "age"))
+      .filterNotNull(List("name", "city"))
       .distinct
 
-    assertResult(data, expectedData)
+    val result = filterRequest.transform(data).getOrElse(null)
+    assert(expectedData.content === result.content)
   }
 }

@@ -23,7 +23,16 @@ class Filter extends TransformationFactory {
    * @return The Filter instance.
    */
   def filterWhere (condition: Map[String, Any] => Boolean): Filter = {
-    whereCondition = condition :: whereCondition
+    // The safeCondition function is a wrapper around the condition function that catches any exceptions and returns false.
+    val safeCondition = (content: Map[String, Any]) => {
+      try {
+        condition(content)
+      } catch {
+        case _: Throwable => false
+      }
+    }
+
+    whereCondition = safeCondition :: whereCondition
     this
   }
 
