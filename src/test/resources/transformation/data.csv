@@ -1,0 +1,7 @@
+name,age,city,email
+John,30,New York,john@exemple.com
+Jane,25,Los Angeles,jane@exemple.com
+Jane,null,Los Angeles,jane@exemple.com
+null,40,Los Angeles,null@exemple.com
+John,30,New York,john@exemple.com
+Doe,35,Chicago,doe@exemple.com

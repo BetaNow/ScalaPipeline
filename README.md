@@ -18,6 +18,29 @@ This framework provides a type-safe, functional approach to building data proces
 - Monitoring and logging capabilities
 - Parallel processing support
 
+## Transformations
+### Filter
+- filterWhere(condition) - keep records matching condition
+- filterNotNull(fields) - remove records with null in specified fields
+- distinct - remove duplicate records
+
+### Fields
+- renameFields(oldName -> newName) - rename fields
+- dropFields(fieldNames) - remove fields
+- selectFields(fieldNames) - keep only these fields
+- addField(name, value) - add new field with constant value
+
+### Transform
+- mapValues(field, function) - transform specific field values
+- trim(fields) - remove whitespace
+- normalize(field, format) - standardize dates/numbers
+- toLowerCase/toUpperCase(fields) - change case of field values
+
+### Aggregate
+- groupBy(field) - group records by field
+- count(field) - count records
+- sum(field) - sum field values
+
 ## Tech Stack
 
 - Scala

@@ -1,12 +1,12 @@
 package me.betanow
 package processors
 
+import models.Data
+
 /**
  * The Transformation trait is a generic interface for transforming data.
- *
- * @tparam Data The type of the data to be transformed.
  */
-trait Transformation [Data] {
+trait Transformation {
   /**
    * Transforms data.
    *
