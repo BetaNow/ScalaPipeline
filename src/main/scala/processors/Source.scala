@@ -1,12 +1,12 @@
 package me.betanow
 package processors
 
+import models.Data
+
 /**
  * The Source trait is a generic interface for reading data from a source.
- * 
- * @tparam Data The type of the data to be read.
  */
-trait Source [Data] {
+trait Source {
   /**
    * Reads data from a source.
    * 
