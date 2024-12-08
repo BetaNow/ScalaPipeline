@@ -44,7 +44,6 @@ class FileSourceFactoryTest extends AnyFunSuite {
 
     // Convert to JsonData to access content
     val csvData = result.getOrElse(null)
-    print (expectedContent)
     assert(expectedContent == csvData.content)
   }
 
@@ -62,6 +61,7 @@ class FileSourceFactoryTest extends AnyFunSuite {
 
     // Convert to JsonData to access content
     val xmlData = result.getOrElse(null)
+    println(xmlData.content)
     assert(expectedContent == xmlData.content)
   }
 

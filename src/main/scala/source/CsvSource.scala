@@ -17,21 +17,51 @@ class CsvSource extends Source {
   override def read (path: String): Either[Throwable, Data] ={
     try {
       val file = scala.io.Source.fromFile(path)
-      val lines = file.getLines().toList
-      val head = lines.head.split(',')
-      val content = List[Map[String, Any]]()
-
-      for (line <- lines.tail) {
-        val values = line.split(',')
-        val content = head.zip(values).toMap
-      }
+      // Get the keys from the first line
+      val keys = file.getLines().next().split(",").map(_.trim)
+      // Get the content
+      val content = file.getLines().map { line =>
+        keys.zip(line.split(",").map(_.trim)).toMap
+      }.toList
 
       // Close the file
       file.close()
       
-      Right(Data(path, content))
+      Right(Data(path, convertTypes(content)))
     } catch {
       case e: Throwable => Left(e)
     }
+  }
+
+  /**
+   * Converts the data types to the correct types.
+   *
+   * @param data The data to convert.
+   * @return The data with the correct types.
+   */
+  private def convertTypes (data: List[Map[String, Any]]): List[Map[String, Any]] = {
+    def convertValue (value: Any): Any = value match {
+      case s: String =>
+        // Try to convert to Int
+        try {
+          s.toInt
+        } catch {
+          case _: NumberFormatException =>
+            // Try to convert to Double
+            try {
+              s.toDouble
+            } catch {
+              case _: NumberFormatException =>
+                // Try to convert to Boolean
+                s.toLowerCase match {
+                  case "true" | "false" => s.toBoolean
+                  case _ => s
+                }
+            }
+          case other => other
+        }
+    }
+
+    data.map(_.map { case (key, value) => key -> convertValue(value) })
   }
 }

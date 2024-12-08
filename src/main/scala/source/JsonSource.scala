@@ -15,7 +15,7 @@ class JsonSource extends Source {
    * @param path The path to the JSON file.
    * @return Either a Throwable in case of an error or the data read.
    */
-  override def read (path: String): Either[Throwable, Data] ={
+  override def read (path: String): Either[Throwable, Data] = {
     try {
       val file = scala.io.Source.fromFile(path)
       val json: JsValue = Json.parse(file.getLines().mkString)
@@ -25,19 +25,19 @@ class JsonSource extends Source {
 
       // Close the file
       file.close()
-      
+
       Right(Data(path, content))
     } catch {
       case e: Throwable => Left(e)
     }
   }
-  
+
   /**
    * Reads a map from a JSON value.
-   * 
+   *
    * @return The map read.
    */
-  def mapReads: Reads[Map[String, Any]] = {
+  private def mapReads: Reads[Map[String, Any]] = {
     case JsObject(fields) =>
       JsSuccess(fields.map { case (key, value) =>
         key -> (value match {

@@ -9,7 +9,7 @@ import models.Data
 trait Source {
   /**
    * Reads data from a source.
-   * 
+   *
    * @param path The path to the source.
    * @return Either a Throwable in case of an error or the data read.
    */
