@@ -82,13 +82,12 @@ class FilterTransformation extends TransformationFactory {
         .filter(content => nullCheckFields.forall(field => content.contains(field) && content(field) != null))
 
       val distinctData = if isDistinct then filteredData.distinct else filteredData
-
-      // auto-reset state after transformation
-      reset()
       
       Right(input.copy(content = distinctData))
     } catch {
       case e: Throwable => Left(e)
+    } finally {
+      reset() // Reset the transformation state after processing
     }
   }
 }

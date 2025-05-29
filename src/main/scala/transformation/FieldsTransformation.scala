@@ -116,12 +116,11 @@ class FieldsTransformation extends TransformationFactory {
 
       val result = Right(input.copy(content = fieldedData))
 
-      // Auto-reset state after transformation
-      reset()
-
       result
     } catch {
       case e: Throwable => Left(e)
+    } finally {
+      reset() // Ensure the transformation state is reset after processing
     }
   }
 }
