@@ -6,7 +6,7 @@ import models.Data
 /**
  * The Filter class is a transformation that filters data based on a set of conditions.
  */
-class Filter extends TransformationFactory {
+class FilterTransformation extends TransformationFactory {
   // The whereCondition field is a list of functions that take a Map[String, Any] and return a Boolean.
   private var whereCondition: List[Map[String, Any] => Boolean] = List()
 
@@ -15,6 +15,18 @@ class Filter extends TransformationFactory {
 
   // The isDistinct field is a flag that indicates whether the filtered data should be distinct.
   private var isDistinct: Boolean = false
+  
+  /**
+   * Resets the transformation to its initial state.
+   *
+   * @return The Filter instance.
+   */
+  private def reset (): FilterTransformation = {
+    whereCondition = List()
+    nullCheckFields = List()
+    isDistinct = false
+    this
+  }
 
   /**
    * Adds a filter condition.
@@ -22,7 +34,7 @@ class Filter extends TransformationFactory {
    * @param condition The filter condition.
    * @return The Filter instance.
    */
-  def filterWhere (condition: Map[String, Any] => Boolean): Filter = {
+  def filterWhere (condition: Map[String, Any] => Boolean): FilterTransformation = {
     // The safeCondition function is a wrapper around the condition function that catches any exceptions and returns false.
     val safeCondition = (content: Map[String, Any]) => {
       try {
@@ -42,7 +54,7 @@ class Filter extends TransformationFactory {
    * @param fields The list of fields.
    * @return The Filter instance.
    */
-  def filterNotNull (fields: List[String]): Filter = {
+  def filterNotNull (fields: List[String]): FilterTransformation = {
     nullCheckFields = fields ::: nullCheckFields
     this
   }
@@ -52,7 +64,7 @@ class Filter extends TransformationFactory {
    *
    * @return The Filter instance.
    */
-  def distinct: Filter = {
+  def distinct: FilterTransformation = {
     isDistinct = true
     this
   }
@@ -71,6 +83,9 @@ class Filter extends TransformationFactory {
 
       val distinctData = if isDistinct then filteredData.distinct else filteredData
 
+      // auto-reset state after transformation
+      reset()
+      
       Right(input.copy(content = distinctData))
     } catch {
       case e: Throwable => Left(e)

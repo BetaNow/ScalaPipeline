@@ -28,7 +28,7 @@ This framework provides a type-safe, functional approach to building data proces
 - renameFields(oldName -> newName) - rename fields
 - dropFields(fieldNames) - remove fields
 - selectFields(fieldNames) - keep only these fields
-- addField(name, value) - add new field with constant value
+- addField(fieldName, value) - add new field with constant value
 
 ### Transform
 - mapValues(field, function) - transform specific field values
