@@ -1,17 +1,18 @@
 package me.betanow
 package processors
 
+import models.Data
+
 /**
- * The Sink trait is a generic interface for writing data to a sink.
- *
- * @tparam Data The type of the data to be written.
+ * The Sink trait is a generic interface for writing data to a destination.
  */
-trait Sink [Data] {
+trait Sink {
   /**
-   * Writes data to a sink.
+   * Writes data to a destination.
    *
-   * @param input The data to be written.
-   * @return Either a Throwable in case of an error or unit.
+   * @param data The data to write.
+   * @param path The path to the destination.
+   * @return Either a Throwable in case of an error or a success message.
    */
-  def write (input: Data): Either[Throwable, Unit]
+  def write(data: Data, path: String): Either[Throwable, String]
 }

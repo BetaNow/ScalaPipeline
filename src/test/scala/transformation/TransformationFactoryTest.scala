@@ -1,7 +1,7 @@
 package me.betanow
 package transformation
 
-import source.FileSourceFactory
+import source.SourceFactory
 
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -9,7 +9,7 @@ class TransformationFactoryTest extends AnyFunSuite {
   test("Fields") {
     val fields = new FieldsTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
     var expectedData = sourceFactory("src/test/resources/transformation/data_fielded1.csv").getOrElse(null)
 
@@ -40,7 +40,7 @@ class TransformationFactoryTest extends AnyFunSuite {
   test("Filter") {
     val filter = new FilterTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
     val expectedData = sourceFactory("src/test/resources/transformation/data_filtered.csv").getOrElse(null)
 

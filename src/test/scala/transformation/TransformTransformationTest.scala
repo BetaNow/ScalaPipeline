@@ -1,7 +1,7 @@
 package me.betanow
 package transformation
 
-import source.FileSourceFactory
+import source.SourceFactory
 import models.Data
 
 import org.scalatest.funsuite.AnyFunSuite
@@ -10,7 +10,7 @@ class TransformTransformationTest extends AnyFunSuite {
   test("Map field transformation") {
     val transform = new TransformTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -59,7 +59,7 @@ class TransformTransformationTest extends AnyFunSuite {
   test("Normalize field transformation") {
     val transform = new TransformTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -79,7 +79,7 @@ class TransformTransformationTest extends AnyFunSuite {
   test("To lowercase transformation") {
     val transform = new TransformTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -113,7 +113,7 @@ class TransformTransformationTest extends AnyFunSuite {
   test("To uppercase transformation") {
     val transform = new TransformTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -142,7 +142,7 @@ class TransformTransformationTest extends AnyFunSuite {
   test("Multiple transformations") {
     val transform = new TransformTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])

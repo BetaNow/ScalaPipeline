@@ -1,7 +1,7 @@
 package me.betanow
 package transformation
 
-import source.FileSourceFactory
+import source.SourceFactory
 import models.Data
 
 import org.scalatest.funsuite.AnyFunSuite
@@ -10,7 +10,7 @@ class AggregateTransformationTest extends AnyFunSuite {
   test("Aggregate") {
     val aggregate = new AggregateTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -38,7 +38,7 @@ class AggregateTransformationTest extends AnyFunSuite {
   test("Aggregate with sum") {
     val aggregate = new AggregateTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -65,7 +65,7 @@ class AggregateTransformationTest extends AnyFunSuite {
   test("Aggregate with no groupBy fields") {
     val aggregate = new AggregateTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])
@@ -85,7 +85,7 @@ class AggregateTransformationTest extends AnyFunSuite {
   test("Aggregate with no aggregation functions") {
     val aggregate = new AggregateTransformation()
 
-    val sourceFactory = FileSourceFactory()
+    val sourceFactory = SourceFactory()
     val data = sourceFactory("src/test/resources/transformation/data.csv").getOrElse(null)
 
     assert(data.isInstanceOf[models.Data])

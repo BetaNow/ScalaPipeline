@@ -6,7 +6,7 @@ import models.Data
 /**
  * The FileSourceFactory class is a factory for creating sources based on file extensions.
  */
-class FileSourceFactory {
+class SourceFactory {
   /**
    * Creates a source based on the file extension.
    * 

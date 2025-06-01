@@ -15,7 +15,7 @@ class FileSourceFactoryTest extends AnyFunSuite {
 
   test("Test for JSON file source") {
     val path = "src/test/resources/source/test.json"
-    val factory = new FileSourceFactory()
+    val factory = new SourceFactory()
     val result = factory(path)
     assert(result.isRight)
 
@@ -32,7 +32,7 @@ class FileSourceFactoryTest extends AnyFunSuite {
 
   test("Test for CSV file source") {
     val path = "src/test/resources/source/test.csv"
-    val factory = new FileSourceFactory()
+    val factory = new SourceFactory()
     val result = factory(path)
     assert(result.isRight)
 
@@ -49,7 +49,7 @@ class FileSourceFactoryTest extends AnyFunSuite {
 
   test("Test for XML file source") {
     val path = "src/test/resources/source/test.xml"
-    val factory = new FileSourceFactory()
+    val factory = new SourceFactory()
     val result = factory(path)
     assert(result.isRight)
 
@@ -67,7 +67,7 @@ class FileSourceFactoryTest extends AnyFunSuite {
 
   test("Test for unsupported file extension") {
     val path = "src/test/resources/source/test.txt"
-    val factory = new FileSourceFactory()
+    val factory = new SourceFactory()
     val result = factory(path)
     assert(result.isLeft)
   }
